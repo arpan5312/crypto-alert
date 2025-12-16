@@ -2,7 +2,7 @@ from logic import percent_change
 prices = []
 returns = []
 max_history = 20
-baseline_volume = None
+baseline_volatility = None
 
 def computation (new_price):
     prices.append(new_price)
@@ -18,18 +18,18 @@ def computation (new_price):
     if len(prices) > max_history:
         prices.pop(0)
     if len(returns) > max_history:
-        prices.pop(0)
+        returns.pop(0)
 
     #mainting baseline
     if len(returns)%3 == 0:
         baseline_operations()
 
 def baseline_operations():
-    global baseline_volume
+    global baseline_volatility
 
     if returns:
-        recent = returns[-max_history]
-        baseline_volume = sum(abs(r) for r in recent) / len(recent)
+        recent = returns[-max_history:]
+        baseline_volatility = sum(abs(r) for r in recent) / len(recent)
 
         
 
